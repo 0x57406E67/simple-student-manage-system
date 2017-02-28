@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="depart.Depart" table="depart">
+        <id name="depID" type="java.lang.Integer">
+            <column name="depID" />
+            <generator class="identity" />
+        </id>
+        <property name="depName" type="java.lang.String">
+            <column name="depName" length="20" not-null="true" />
+        </property>
+		<property name="depPresident" type="java.lang.String">
+            <column name="depPresident" length="10" not-null="false" />
+        </property>
+        <property name="depAddr" type="java.lang.String">
+            <column name="depAddr" length="50" not-null="false" />
+        </property>
+        <property name="depTel" type="java.lang.String">
+            <column name="depTel" length="15" not-null="false" />
+        </property>
+        <set name="majorSet" inverse="true" cascade="all" >
+        	<key column="depID"></key>
+        	<one-to-many class="major.Major" />
+        </set>
+    </class>
+</hibernate-mapping>

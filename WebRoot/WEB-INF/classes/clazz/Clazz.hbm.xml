@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="clazz.Clazz" table="clazz">
+        <id name="clzID" type="java.lang.Integer">
+            <column name="clzID" />
+            <generator class="identity" />
+        </id>
+        <property name="clzName" type="java.lang.String">
+        	<column name="clzName" length="50" not-null="true" />
+        </property>  
+        <many-to-one name="major" class="major.Major" column="majID"/>    
+        <set name="studentSet" inverse="true" cascade="all" >
+        	<key column="clzID"></key>
+        	<one-to-many class="student.Student" />
+        </set>       
+    </class>
+</hibernate-mapping>

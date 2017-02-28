@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="major.Major" table="major">
+        <id name="majID" type="java.lang.Integer">
+            <column name="majID" />
+            <generator class="identity" />
+        </id>
+        
+        <many-to-one name="depart" class="depart.Depart" column="depID"/>
+        <set name="clazzSet" inverse="true" cascade="all" >
+        	<key column="majID"></key>
+        	<one-to-many class="clazz.Clazz" />
+        </set>   
+        
+        <property name="majName" type="java.lang.String">
+            <column name="majName" length="50" not-null="true" />
+        </property>      
+        <property name="majPresident" type="java.lang.String">
+            <column name="majPresident" length="10" not-null="false" />
+        </property>
+        <property name="majTel" type="java.lang.String">
+            <column name="majTel" length="15" not-null="false" />
+        </property>   
+        
+    </class>
+</hibernate-mapping>

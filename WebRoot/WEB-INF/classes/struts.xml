@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- 常量 -->
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+	<constant name="struts.i18n.encoding" value="utf-8"></constant>
+	
+	<package name="common" namespace="/" extends="json-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="web.LoginInterceptor"></interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="loginInterceptor">
+					<param name="excludeMethods">login</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>	
+		
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+		
+		<global-results>
+			<result name="nonLogin">/WEB-INF/login.jsp</result>
+		</global-results>
+	</package>
+	
+	<!-- User -->
+	<package name="user" namespace="/user" extends="common">
+		<action name="UserAction_*" class="user.UserAction" method="{1}">
+			<result name="success">/WEB-INF/frame.jsp</result>
+			<result name="login">/WEB-INF/login.jsp</result>
+			<result name="logout" type="redirectAction">UserAction_login</result>
+		</action>
+	</package>
+	<!-- End User -->
+	
+	<!-- Depart -->
+ 	<package name="dept" namespace="/depart" extends="common">
+		<action name="departAction_*" class="depart.DepartAction" method="{1}">
+			<result name="findAllPage">${pageContext.request.contextPath}/depart/listDeptPage.jsp</result>
+			<result name="findAll">${pageContext.request.contextPath}/depart/listDept.jsp</result>
+			<result name="preAdd">${pageContext.request.contextPath}/depart/addDept.jsp</result>
+			<result name="preEdit">${pageContext.request.contextPath}/depart/editDept.jsp</result>
+			<result name="edit" type="redirectAction">departAction_findAllPage?pageNum=${pageNum}</result>
+			<result name="add" type="redirectAction">departAction_findAllPage?pageNum=${pageNum}</result>
+			<result name="del" type="redirectAction">departAction_findAllPage?pageNum=${pageNum}</result>
+		</action>
+	</package>
+	<!-- End Depart -->
+	
+	<!-- Major -->
+    <package name="major" namespace="/major" extends="common">
+	<action name="majorAction_*" class="major.MajorAction" method="{1}">
+		<result name="findAllPage">${pageContext.request.contextPath}/major/listMajorPage.jsp</result>
+		<result name="findAll">${pageContext.request.contextPath}/major/listMajor.jsp</result>
+		<result name="preAdd">${pageContext.request.contextPath}/major/addMajor.jsp</result>
+		<result name="preEdit">${pageContext.request.contextPath}/major/editMajor.jsp</result>
+		<result name="add" type="redirectAction">majorAction_findAllPage?pageNum=${pageNum}</result>
+		<result name="edit" type="redirectAction">majorAction_findAllPage?pageNum=${pageNum}</result>
+		<result name="del" type="redirectAction">majorAction_findAllPage?pageNum=${pageNum}</result>
+	</action>
+	</package>
+	<!-- End Major -->
+	
+	<!-- Clazz -->
+ 	<package name="clazz" namespace="/clazz" extends="common">
+		<action name="clazzAction_*" class="clazz.ClazzAction" method="{1}">
+			<result name="findAllPage">${pageContext.request.contextPath}/clazz/listClzPage.jsp</result>
+			<result name="findAll">${pageContext.request.contextPath}/clazz/listClz.jsp</result>
+			<result name="preAdd">${pageContext.request.contextPath}/clazz/addClz.jsp</result>
+			<result name="preEdit">${pageContext.request.contextPath}/clazz/editClz.jsp</result>
+			<result name="edit" type="redirectAction">clazzAction_findAllPage?pageNum=${pageNum}</result>
+			<result name="add" type="redirectAction">clazzAction_findAllPage?pageNum=${pageNum}</result>
+			<result name="del" type="redirectAction">clazzAction_findAllPage?pageNum=${pageNum}</result>
+		</action>
+	</package>
+	<!-- End Clazz -->
+		
+	<!-- Student -->
+ 	<package name="student" namespace="/student" extends="common">
+		<action name="studentAction_*" class="student.StudentAction" method="{1}">
+			<result name="findAllPage">${pageContext.request.contextPath}/student/listStuPage.jsp</result>
+			<result name="findAll">${pageContext.request.contextPath}/student/listStu.jsp</result>
+			<result name="preAdd">${pageContext.request.contextPath}/student/addStu.jsp</result>
+			<result name="preEdit">${pageContext.request.contextPath}/student/editStu.jsp</result>
+			<result name="add" type="redirectAction">studentAction_findAllPage?pageNum=${pageNum}</result>
+			<result name="edit" type="redirectAction">studentAction_findAllPage?pageNum=${pageNum}</result>
+			<result name="del" type="redirectAction">studentAction_findAllPage?pageNum=${pageNum}</result>
+		</action>
+	</package>	
+	<!-- End Student -->	
+</struts>    
